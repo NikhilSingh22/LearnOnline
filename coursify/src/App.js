@@ -23,7 +23,7 @@ import ChangePassword from './components/Profile/ChangePassword';
 import Profile from './components/Profile/Profile';
 import UpdateProfile from './components/Profile/UpdateProfile';
 import Request from './components/Request/Request';
-// this is just my react app
+// redux is still not dones
 function App() {
   window.addEventListener('contextmenu', e => {
     e.preventDefault();
