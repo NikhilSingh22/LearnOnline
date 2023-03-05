@@ -7,6 +7,7 @@ import crypto from "crypto";
 import { Course } from "../models/Course.js";
 import cloudinary from "cloudinary";
 import getDataUri from "../utils/dataUri.js";
+import { Stats } from "../models/Stats.js";
 // ***************************************************************
 //  register //
 export const register = catchAsyncError(async (req, res, next) => {
@@ -297,4 +298,14 @@ export const deleteMyProfile = catchAsyncError(async (req, res, next) => {
       success: true,
       message: "Your profile Deleted Successfully",
     });
+});
+
+//subscription feature is not added here
+User.watch().on("change", async () => {
+  const stats = await Stats.find({}).sort({ createdAt: "desc" }).limit(1);
+
+  stats[0].users = await User.countDocuments();
+  stats[0].createdAt = new Date(Date.now());
+
+  await stats[0].save();
 });
